@@ -18,6 +18,8 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -26,8 +28,12 @@ export default {
     }
   },
   methods: {
-    searchMovies () {
-      console.log('search!!')
+    async searchMovies () {
+      this.loading = true
+      await axios.get(`http://www.omdbapi.com/?apikey=97ef7695&s=${this.title}`)
+        .then(res => {
+          this.loading = false
+        })
     }
   }
 }
