@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-text-field
+      class="search-component"
       v-model="title"
       @keypress.enter="searchMovies"
       outlined>
@@ -18,23 +19,31 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
-  data () {
-    return {
-      title: '',
-      loading: false
+  computed: {
+    title: {
+      get () {
+        return this.$store.state.movie.title
+      },
+      set (title) {
+        this.$store.commit('movie/updateState', {
+          title
+        })
+      }
+    },
+    loading () {
+      return this.$store.state.movie.loading
     }
   },
   methods: {
-    async searchMovies () {
-      this.loading = true
-      await axios.get(`http://www.omdbapi.com/?apikey=97ef7695&s=${this.title}`)
-        .then(res => {
-          this.loading = false
-        })
-    }
+    ...mapActions('movie', [
+      'searchMovies'
+    ])
   }
 }
 </script>
+<style lang="scss" scoped>
+
+</style>
