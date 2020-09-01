@@ -14,14 +14,33 @@ export default {
       Object.keys(payload).forEach(key => {
         state[key] = payload[key]
       })
+    },
+    pushIntoMovies (state, movies) {
+      state.movies.push(...movies)
     }
   },
   actions: {
-    async searchMovies ({ state, commit }) {
+    fetchMovies ({ state, commit }, pageNum) {
+      return new Promise(resolve => {
+        (async () => {
+          const res = await axios.get(`https://www.omdbapi.com/?apikey=97ef7695&s=${state.title}&page=${pageNum}`)
+          commit('pushIntoMovies', res.data.Search)
+          resolve(res.data)
+        })()
+      })
+    },
+    async searchMovies ({ commit, dispatch }) {
       try {
-        commit('updateState', { loading: true })
-        const res = await axios.get(`https://www.omdbapi.com/?apikey=97ef7695&s=${state.title}`)
-        commit('updateState', { movies: res.data.Search })
+        commit('updateState', {
+          loading: true,
+          movies: []
+        })
+        const { totalResults } = await dispatch('fetchMovies', 1)
+        const totalCount = Math.ceil(totalResults / 10)
+        for (let i = 2; i <= totalCount; i++) {
+          if (i > 4) break
+          await dispatch('fetchMovies', i)
+        }
       } catch (e) {
         alert(e)
       } finally {
