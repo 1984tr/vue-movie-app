@@ -1,20 +1,28 @@
 <template>
-  <v-app>
-    <v-container>
-      <search-bar />
-      <movie-list />
-    </v-container>
-  </v-app>
+  <div class="app">
+    <router-link
+      to="/"
+      class="to-home">
+      HOME
+    </router-link>
+    <router-view />
+  </div>
 </template>
 <script>
-import SearchBar from '@/components/SearchBar'
-import MovieList from '@/components/MovieList'
-
 export default {
-  name: 'App',
-  components: {
-    SearchBar,
-    MovieList
-  }
+  name: 'App'
 }
 </script>
+<style lang="scss" scoped>
+.app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: gray;
+}
+.to-home {
+  padding: 8px;
+  color: white;
+}
+</style>
