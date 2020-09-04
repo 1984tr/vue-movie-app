@@ -9,7 +9,7 @@
       lg="3"
       md="3"
       sm="6">
-      <v-card>
+      <v-card @click="selectItem(movie)">
         <v-img
         :src="posterSrc(movie.Poster)"
         :alt="movie.Title"
@@ -40,6 +40,9 @@ export default {
     },
     posterHeight (poster) {
       return poster === 'N/A' ? 100 : 300
+    },
+    selectItem (movie) {
+      this.$emit('select-movie', movie)
     }
   }
 }

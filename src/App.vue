@@ -19,10 +19,10 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: gray;
+  background-color: white;
 }
 .to-home {
   padding: 8px;
-  color: white;
+  color: black;
 }
 </style>

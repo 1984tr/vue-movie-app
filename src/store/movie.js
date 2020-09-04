@@ -4,7 +4,8 @@ export default {
   state: () => ({
     title: '',
     loading: false,
-    movies: []
+    movies: [],
+    selectedMovie: {}
   }),
   getters: {
 
@@ -17,6 +18,9 @@ export default {
     },
     pushIntoMovies (state, movies) {
       state.movies.push(...movies)
+    },
+    selectMovie (state, movie) {
+      state.selectedMovie = movie
     }
   },
   actions: {
@@ -28,6 +32,9 @@ export default {
           resolve(res.data)
         })()
       })
+    },
+    selectMovie ({ commit }, movie) {
+      commit('selectMovie', movie)
     },
     async searchMovies ({ commit, dispatch }) {
       try {

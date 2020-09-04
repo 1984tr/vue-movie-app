@@ -38,7 +38,7 @@ export default {
 h2 {
   font-size: 24px;
   font-weight: 700;
-  color: blanchedalmond;
+  color: teal;
 }
 h2 + h2 {
   margin-top: 16px;

@@ -1,7 +1,8 @@
 <template>
   <div class="search">
     <search-bar />
-    <movie-list />
+    <movie-list
+      @select-movie="selectMovie"/>
   </div>
 </template>
 <script>
@@ -13,6 +14,13 @@ export default {
   components: {
     SearchBar,
     MovieList
+  },
+  methods: {
+    selectMovie (movie) {
+      console.log(movie)
+      this.$store.commit('movie/selectMovie', movie)
+      this.$router.push('/detail')
+    }
   }
 }
 </script>
