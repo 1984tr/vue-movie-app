@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     selectMovie (movie) {
-      console.log(movie)
       this.$store.commit('movie/selectMovie', movie)
       this.$router.push('/detail')
     }
